@@ -7,6 +7,9 @@ const traducciones = {
         hero_desc: "Una experiencia sonora entre luces y sombras.",
         hero_btn: "Descubrir",
         music_titulo: "Discografía",
+        card_astera: "<strong class=\"album-desc-name\">✦ Astera ✦</strong><span>Un escape mágico y fantástico lejos de la realidad.</span>",
+        card_hush: "<strong class=\"album-desc-name\">✦ Hush ✦</strong><span>Un espacio oscuro y metafórico que explora el trauma, la soledad y las heridas ocultas.</span>",
+        card_gravity: "<strong class=\"album-desc-name\">✦ Gravity ✦</strong><span>El aterrizaje en el mundo real; una mirada madura y segura frente a la belleza y crueldad de la vida.</span>",
         listen_titulo: "Escucha aquí",
         lore_titulo: "El Universo de AMADA",
         lore_p1: "AMADA es una artista virtual y cantante de IA creada como un proyecto musical narrativo. Une una estética femenina, juvenil, soñadora y ligeramente inquietante con un sonido dark-pop y dream-pop de melodías pegadizas, ritmos marcados, vocales expresivas y producción pop moderna, manteniendo una identidad reconocible en cada era.",
@@ -23,6 +26,9 @@ const traducciones = {
         hero_desc: "A sonic experience between light and shadows.",
         hero_btn: "Discover",
         music_titulo: "Discography",
+        card_astera: "<strong class=\"album-desc-name\">✦ Astera ✦</strong><span>A magical, fantastical escape far from reality.</span>",
+        card_hush: "<strong class=\"album-desc-name\">✦ Hush ✦</strong><span>A dark, metaphorical space exploring trauma, loneliness, and hidden wounds.</span>",
+        card_gravity: "<strong class=\"album-desc-name\">✦ Gravity ✦</strong><span>The landing in the real world; a mature, confident gaze facing life's beauty and cruelty.</span>",
         listen_titulo: "Listen here",
         lore_titulo: "AMADA's Universe",
         lore_p1: "AMADA is a virtual artist and AI singer created as a narrative music project. She blends a feminine, youthful, dreamy, and slightly eerie aesthetic with a dark-pop and dream-pop sound of catchy melodies, punchy rhythms, expressive vocals, and modern pop production, maintaining a recognizable identity in every era.",
@@ -65,11 +71,32 @@ function cambiarIdioma(idioma) {
 btnEs.addEventListener("click", () => cambiarIdioma("es"));
 btnEn.addEventListener("click", () => cambiarIdioma("en"));
 
-// 5. GIRO 3D DE PORTADAS DE ÁLBUMES AL HACER CLIC
+// 5. GIRO 3D CONTINUO A LA IZQUIERDA (NOMBRE -> PORTADA -> TEXTO -> NOMBRE)
 const albumCards = document.querySelectorAll(".album-card:not(.coming-soon)");
 albumCards.forEach((card) => {
+    const inner = card.querySelector(".album-card-inner");
+    const front = card.querySelector(".album-front");
+    const back = card.querySelector(".album-back");
+    const stages = [
+        card.querySelector(".album-stage-title"),
+        card.querySelector(".album-stage-cover"),
+        card.querySelector(".album-stage-desc")
+    ];
+    let step = 0;
+
     card.addEventListener("click", () => {
-        const flipped = card.classList.toggle("is-flipped");
-        card.setAttribute("aria-pressed", String(flipped));
+        step += 1;
+        const nextStage = stages[step % stages.length];
+        const incomingFace = step % 2 === 0 ? front : back;
+
+        // Oculta cualquier etapa previa en la cara entrante y coloca la siguiente
+        Array.from(incomingFace.children).forEach((child) => {
+            child.hidden = true;
+            card.appendChild(child);
+        });
+        nextStage.hidden = false;
+        incomingFace.appendChild(nextStage);
+
+        inner.style.setProperty("--flip-deg", `${step * -180}deg`);
     });
 });
