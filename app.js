@@ -1,7 +1,7 @@
 // 1. DICCIONARIO DE TRADUCCIONES
 const traducciones = {
     es: {
-        nav_inicio: "Inicio",
+        nav_escucha: "Escucha aquí",
         nav_disco: "Discografía",
         nav_universo: "El Universo",
         hero_desc: "Una experiencia sonora entre luces y sombras.",
@@ -9,13 +9,15 @@ const traducciones = {
         music_titulo: "Discografía",
         listen_titulo: "Escucha aquí",
         lore_titulo: "El Universo de AMADA",
-        lore_p1: "AMADA es más que una voz; es una artista virtual nacida en la intersección de la melancolía del dark-pop y la ensoñación del dream-pop.",
-        lore_p2: "Un eco digital que explora las emociones humanas a través de paisajes sonoros. Desde los destellos iniciales de <strong>Astera</strong> hasta los secretos guardados en <strong>Hush</strong>, su existencia es un viaje constante entre la luz y la sombra, preparando el camino para lo que está por venir.",
-        lore_nota: "[ Los fragmentos de su historia serán revelados pronto... ]",
+        lore_p1: "AMADA es una artista virtual y cantante de IA creada como un proyecto musical narrativo. Une una estética femenina, juvenil, soñadora y ligeramente inquietante con un sonido dark-pop y dream-pop de melodías pegadizas, ritmos marcados, vocales expresivas y producción pop moderna, manteniendo una identidad reconocible en cada era.",
+        lore_p2: "Su historia se despliega álbum a álbum como etapas distintas de su experiencia, sin requerir una continuidad lineal estricta entre ellas:",
+        lore_astera: "<strong class=\"era-astera\">✦ Astera:</strong> Un mundo mágico e imaginario creado como escape de la realidad, centrado en la fantasía y en un refugio lejos de lo que ocurre en Hush y Gravity.",
+        lore_hush: "<strong class=\"era-hush\">✦ Hush:</strong> Un espacio oscuro e inquietante que, a través de metáforas, indaga en el trauma, la soledad y las heridas ocultas bajo la superficie.",
+        lore_gravity: "<strong class=\"era-gravity\">✦ Gravity:</strong> El aterrizaje en el mundo real y sus reglas; una mirada curiosa, segura y madura que observa y enfrenta tanto la belleza como la crueldad de la vida.",
         footer_copy: "© 2026 AMADA. Todos los derechos reservados."
     },
     en: {
-        nav_inicio: "Home",
+        nav_escucha: "Listen here",
         nav_disco: "Discography",
         nav_universo: "The Universe",
         hero_desc: "A sonic experience between light and shadows.",
@@ -23,9 +25,11 @@ const traducciones = {
         music_titulo: "Discography",
         listen_titulo: "Listen here",
         lore_titulo: "AMADA's Universe",
-        lore_p1: "AMADA is more than a voice; she is a virtual artist born at the intersection of dark-pop melancholy and dream-pop reverie.",
-        lore_p2: "A digital echo exploring human emotions through soundscapes. From the initial sparks of <strong>Astera</strong> to the secrets kept in <strong>Hush</strong>, her existence is a constant journey between light and shadow, paving the way for what is to come.",
-        lore_nota: "[ Fragments of her story will be revealed soon... ]",
+        lore_p1: "AMADA is a virtual artist and AI singer created as a narrative music project. She blends a feminine, youthful, dreamy, and slightly eerie aesthetic with a dark-pop and dream-pop sound of catchy melodies, punchy rhythms, expressive vocals, and modern pop production, maintaining a recognizable identity in every era.",
+        lore_p2: "Her story unfolds album by album as distinct stages of her experience, without requiring a strict linear continuity between them:",
+        lore_astera: "<strong class=\"era-astera\">✦ Astera:</strong> A magical, imaginary world created as an escape from reality, centered on fantasy and a refuge far from what happens in Hush and Gravity.",
+        lore_hush: "<strong class=\"era-hush\">✦ Hush:</strong> A dark, unsettling space that uses metaphors to explore trauma, loneliness, and the wounds hidden beneath the surface.",
+        lore_gravity: "<strong class=\"era-gravity\">✦ Gravity:</strong> The landing in the real world and its rules; a curious, confident, and mature perspective that observes and confronts both the beauty and the cruelty of life.",
         footer_copy: "© 2026 AMADA. All rights reserved."
     }
 };

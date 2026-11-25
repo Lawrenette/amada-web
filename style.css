@@ -19,6 +19,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -38,13 +42,14 @@ h1, h2, h3, .logo {
 ========================================= */
 header {
     background-color: rgba(10, 10, 14, 0.9);
-    padding: 15px 20px;
+    padding: 12px 10px;
     position: fixed;
     width: 100%;
     top: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 10px;
     z-index: 100;
 }
 
@@ -56,20 +61,32 @@ header {
     font-weight: bold;
     letter-spacing: 3px;
     color: var(--color-logo);
+    text-decoration: none;
     text-shadow: 0 0 10px rgba(240, 98, 134, 0.3); /* Resplandor rosa */
+    flex-shrink: 0;
+}
+
+.logo:focus-visible {
+    outline: 2px solid var(--color-logo);
+    outline-offset: 4px;
 }
 
 .logo-icon {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
     object-fit: contain;
     flex-shrink: 0;
+}
+
+.logo-text {
+    display: none;
 }
 
 .menu {
     list-style: none;
     display: flex;
-    gap: 15px;
+    align-items: center;
+    gap: 10px;
     margin: 0;
     padding: 0;
 }
@@ -78,8 +95,9 @@ header {
     color: var(--texto);
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 11px;
-    letter-spacing: 1px;
+    font-size: 9.5px;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
     transition: color 0.3s;
 }
 
@@ -90,9 +108,11 @@ header {
 /* Selector de Idioma */
 .lang-switch {
     font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    letter-spacing: 2px;
+    font-size: 11px;
+    letter-spacing: 1px;
     color: #555;
+    white-space: nowrap;
+    flex-shrink: 0;
     cursor: pointer;
 }
 
@@ -388,12 +408,32 @@ header {
     margin-bottom: 20px;
 }
 
-.lore-nota {
-    margin-top: 40px;
-    font-style: italic;
+.lore-eras {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.lore-eras li {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--texto);
+}
+
+.era-astera {
+    color: var(--color-astera);
+}
+
+.era-hush {
+    color: var(--color-hush);
+}
+
+.era-gravity {
     color: var(--color-gravity);
-    font-size: 14px;
-    letter-spacing: 1px;
 }
 
 /* =========================================
@@ -436,16 +476,16 @@ footer {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    min-width: 44px;
-    min-height: 44px;
+    min-width: 52px;
+    min-height: 52px;
     text-decoration: none;
     border-radius: 50%;
     transition: transform 0.25s ease, filter 0.25s ease;
 }
 
 .footer-icon {
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
     object-fit: contain;
     display: block;
 }
@@ -476,6 +516,7 @@ footer {
 @media (min-width: 768px) {
     header {
         padding: 20px 50px;
+        justify-content: space-between;
     }
 
     .logo {
@@ -487,16 +528,22 @@ footer {
         height: 32px;
     }
 
+    .logo-text {
+        display: inline;
+    }
+
     .menu {
         gap: 30px;
     }
 
     .menu a {
         font-size: 13px;
+        letter-spacing: 1px;
     }
 
     .lang-switch {
         font-size: 13px;
+        letter-spacing: 2px;
     }
 
     #hero {
@@ -559,6 +606,10 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
     .album-card,
     .album-card-inner,
     .album-face,
