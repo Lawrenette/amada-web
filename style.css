@@ -49,11 +49,21 @@ header {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-size: 20px;
     font-weight: bold;
     letter-spacing: 3px;
     color: var(--color-logo);
     text-shadow: 0 0 10px rgba(240, 98, 134, 0.3); /* Resplandor rosa */
+}
+
+.logo-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .menu {
@@ -168,6 +178,31 @@ header {
 
     width: min(100%, 280px);
     aspect-ratio: 1;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    perspective: 1000px;
+    transition: transform 0.4s ease;
+    cursor: pointer;
+}
+
+.album-card-inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.album-card.is-flipped .album-card-inner {
+    transform: rotateY(-180deg);
+}
+
+.album-face {
+    position: absolute;
+    inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -175,12 +210,32 @@ header {
     border: 1px solid var(--album-color);
     color: var(--album-color);
     box-shadow: 0 10px 20px color-mix(in oklab, var(--album-color) 20%, transparent);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    cursor: pointer;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: box-shadow 0.4s ease;
 }
 
-.album-card h3 {
-    margin: 0;
+.album-back {
+    transform: rotateY(180deg);
+    overflow: hidden;
+}
+
+.album-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.album-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.17em;
+    font-weight: 400;
+}
+
+.album-card:focus-visible {
+    outline: 2px solid var(--album-color);
+    outline-offset: 4px;
 }
 
 /* Colores oficiales de cada álbum (siempre iluminados) */
@@ -203,6 +258,9 @@ header {
 @media (hover: hover) {
     .album-card:hover {
         transform: translateY(-10px);
+    }
+
+    .album-card:hover .album-face {
         box-shadow: 0 12px 24px color-mix(in oklab, var(--album-color) 28%, transparent);
     }
 }
@@ -214,28 +272,91 @@ header {
 /* Tarjeta de "Próximamente" */
 .album-card.coming-soon {
     --album-color: #333;
-    background: var(--bg-tarjetas);
+    cursor: default;
+}
+
+.album-card.coming-soon .album-face {
     border-style: dashed;
     border-color: #333;
     color: #555;
     box-shadow: none;
-    cursor: default;
-}
-
-.album-card.coming-soon h3 {
-    text-shadow: none;
 }
 
 .album-card.coming-soon:hover,
 .album-card.coming-soon:active {
     transform: none;
+}
+
+.album-card.coming-soon:hover .album-face {
     border-color: #555;
     box-shadow: none;
     color: #888;
 }
 
 /* =========================================
-   5. SECCIÓN EL UNIVERSO (LORE)
+   5. SECCIÓN ESCUCHA AQUÍ (MOBILE-FIRST)
+========================================= */
+#listen {
+    padding: 72px 20px 40px;
+    text-align: center;
+}
+
+#listen h2 {
+    margin-top: 0;
+    margin-bottom: 32px;
+    font-size: clamp(1.35rem, 1rem + 1.2vw, 1.8rem);
+    letter-spacing: 2px;
+}
+
+.listen-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.listen-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 12px 14px;
+    background-color: var(--bg-tarjetas);
+    border: 1px solid #2a2a35;
+    color: var(--texto);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.8px;
+    transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.listen-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+@media (hover: hover) {
+    .listen-link:hover {
+        transform: translateY(-3px);
+        border-color: var(--color-logo);
+        color: var(--color-logo);
+        box-shadow: 0 8px 18px color-mix(in oklab, var(--color-logo) 20%, transparent);
+    }
+}
+
+.listen-link:focus-visible {
+    outline: 2px solid var(--color-logo);
+    outline-offset: 2px;
+    border-color: var(--color-logo);
+    color: var(--color-logo);
+}
+
+/* =========================================
+   6. SECCIÓN EL UNIVERSO (LORE)
 ========================================= */
 #lore {
     padding: 60px 20px;
@@ -306,21 +427,39 @@ footer {
 .footer-links {
     display: flex;
     justify-content: center;
-    gap: 25px;
+    align-items: center;
+    gap: 16px;
     flex-wrap: wrap;
 }
 
 .social-link {
-    color: var(--texto);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 44px;
+    min-height: 44px;
     text-decoration: none;
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: color 0.3s;
+    border-radius: 50%;
+    transition: transform 0.25s ease, filter 0.25s ease;
 }
 
-.social-link:hover {
-    color: var(--color-astera);
+.footer-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
+}
+
+@media (hover: hover) {
+    .social-link:hover {
+        transform: translateY(-3px) scale(1.08);
+        filter: drop-shadow(0 0 8px color-mix(in oklab, var(--color-logo) 50%, transparent));
+    }
+}
+
+.social-link:focus-visible {
+    outline: 2px solid var(--color-logo);
+    outline-offset: 3px;
 }
 
 .footer-bottom {
@@ -343,6 +482,11 @@ footer {
         font-size: 24px;
     }
 
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+    }
+
     .menu {
         gap: 30px;
     }
@@ -362,6 +506,19 @@ footer {
 
     #music {
         padding: 100px 50px;
+    }
+
+    #listen {
+        padding: 100px 50px 40px;
+    }
+
+    .listen-grid {
+        gap: 16px;
+    }
+
+    .listen-link {
+        padding: 14px 18px;
+        font-size: 13px;
     }
 
     .album-container {
@@ -395,8 +552,17 @@ footer {
     }
 }
 
+@media (min-width: 900px) {
+    .listen-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .album-card,
+    .album-card-inner,
+    .album-face,
+    .listen-link,
     .btn-escuchar,
     .menu a,
     .social-link {
@@ -404,7 +570,9 @@ footer {
     }
 
     .album-card:hover,
-    .album-card:active {
+    .album-card:active,
+    .listen-link:hover,
+    .social-link:hover {
         transform: none;
     }
 }
