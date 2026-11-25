@@ -281,3 +281,111 @@ albumCards.forEach((card) => {
         });
     });
 })();
+
+// 8. BRILLANTINA SUTIL EN EL FONDO (COLORES DE LOS 3 ÁLBUMES)
+(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const canvas = document.createElement("canvas");
+    canvas.className = "bg-glitter-canvas";
+    canvas.setAttribute("aria-hidden", "true");
+    document.body.prepend(canvas);
+
+    const ctx = canvas.getContext("2d");
+    const albumColors = ["#b178d2", "#ffaee1", "#a6f3fe"];
+    let specks = [];
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function createSpecks(width, height) {
+        const count = Math.min(95, Math.max(40, Math.floor((width * height) / 17000)));
+        specks = Array.from({ length: count }, () => {
+            const isStar = Math.random() < 0.28;
+            return {
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: isStar ? 2.0 + Math.random() * 1.6 : 0.8 + Math.random() * 1.1,
+                isStar,
+                color: albumColors[Math.floor(Math.random() * albumColors.length)],
+                baseAlpha: 0.16 + Math.random() * 0.34,
+                twinkleSpeed: 0.008 + Math.random() * 0.018,
+                phase: Math.random() * Math.PI * 2,
+                driftX: (Math.random() - 0.5) * 0.08,
+                driftY: -(0.04 + Math.random() * 0.1)
+            };
+        });
+    }
+
+    function drawMiniStar(x, y, r) {
+        const inner = r * 0.28;
+        ctx.beginPath();
+        for (let i = 0; i < 8; i++) {
+            const rad = i % 2 === 0 ? r : inner;
+            const angle = (i * Math.PI) / 4;
+            const px = x + Math.cos(angle) * rad;
+            const py = y + Math.sin(angle) * rad;
+            if (i === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    function render(tick) {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        ctx.clearRect(0, 0, w, h);
+
+        for (let i = 0; i < specks.length; i++) {
+            const s = specks[i];
+            if (!prefersReducedMotion) {
+                s.x += s.driftX;
+                s.y += s.driftY;
+                if (s.y < -6) s.y = h + 6;
+                if (s.x < -6) s.x = w + 6;
+                if (s.x > w + 6) s.x = -6;
+            }
+
+            const twinkle = prefersReducedMotion
+                ? 0.75
+                : 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(tick * s.twinkleSpeed + s.phase));
+
+            ctx.save();
+            ctx.globalAlpha = s.baseAlpha * twinkle;
+            ctx.fillStyle = s.color;
+            ctx.shadowColor = s.color;
+            ctx.shadowBlur = s.isStar ? 6 : 4;
+
+            if (s.isStar) {
+                drawMiniStar(s.x, s.y, s.size);
+            } else {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+    }
+
+    function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        createSpecks(w, h);
+        render(0);
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    if (!prefersReducedMotion) {
+        let tick = 0;
+        function loop() {
+            tick += 1;
+            render(tick);
+            requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
+    }
+})();
