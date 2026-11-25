@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMADA | Ethereal Dark-Pop</title>
+    
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- BARRA DE NAVEGACIÓN -->
+<header>
+    <!-- 1. Logo a la izquierda -->
+    <div class="logo">AMADA</div>
+    
+    <!-- 2. Menú al centro -->
+    <nav>
+        <ul class="menu">
+            <li><a href="#hero" data-tr="nav_inicio">Inicio</a></li>
+            <li><a href="#music" data-tr="nav_disco">Discografía</a></li>
+            <li><a href="#lore" data-tr="nav_universo">El Universo</a></li>
+        </ul>
+    </nav>
+    
+    <!-- 3. Idioma a la derecha -->
+    <div class="lang-switch">
+        <span class="active" id="btn-es">ES</span> / <span class="inactive" id="btn-en">EN</span>
+    </div>
+</header>
+
+<!-- SECCIÓN PRINCIPAL (HERO) -->
+<section id="hero">
+    <h1>AMADA</h1>
+    <p data-tr="hero_desc">Una experiencia sonora entre luces y sombras.</p>
+    <button class="btn-escuchar" data-tr="hero_btn">Descubrir</button>
+</section>
+
+<!-- SECCIÓN DE DISCOGRAFÍA -->
+<section id="music">
+    <h2 data-tr="music_titulo">Discografía</h2>
+    <div class="album-container">
+        <div class="album-card album-astera"><h3>Astera</h3></div>
+        <div class="album-card album-hush"><h3>Hush</h3></div>
+        <div class="album-card album-gravity"><h3>Gravity</h3></div>
+    </div>
+</section>
+
+<!-- SECCIÓN EL UNIVERSO (LORE) -->
+<section id="lore">
+    <div class="lore-container">
+        <h2 data-tr="lore_titulo">El Universo de AMADA</h2>
+        <p class="lore-text" data-tr="lore_p1">
+            AMADA es más que una voz; es una artista virtual nacida en la intersección de la melancolía del dark-pop y la ensoñación del dream-pop. 
+        </p>
+        <p class="lore-text" data-tr="lore_p2">
+            Un eco digital que explora las emociones humanas a través de paisajes sonoros. Desde los destellos iniciales de <strong>Astera</strong> hasta los secretos guardados en <strong>Hush</strong>, su existencia es un viaje constante entre la luz y la sombra, preparando el camino para lo que está por venir.
+        </p>
+        <p class="lore-nota" data-tr="lore_nota">
+            [ Los fragmentos de su historia serán revelados pronto... ]
+        </p>
+    </div>
+</section>
+
+<!-- PIE DE PÁGINA (FOOTER) -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo">AMADA</div>
+        <div class="footer-links">
+            <a href="https://www.tiktok.com/@amadamoondreamer" class="social-link">TikTok</a>
+            <a href="https://www.instagram.com/amadamoondreamer" class="social-link">Instagram</a>
+            <a href="https://www.youtube.com/@Amada-Official" class="social-link">YouTube</a>
+            <a href="https://open.spotify.com/artist/2MAQeAmetwloMhFwjapT89" class="social-link">Spotify</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p data-tr="footer_copy">© 2026 AMADA. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<!-- Conectamos el archivo JavaScript -->
+<script src="app.js"></script>
+
+</body>
+</html>

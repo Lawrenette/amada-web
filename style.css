@@ -1,0 +1,410 @@
+/* --- TUS COLORES --- */
+:root {
+    color-scheme: dark;
+
+    --color-logo: #F06286;
+    --color-astera: #b178d2;
+    --color-hush: #ffaee1;
+    --color-gravity: #a6f3fe;
+
+    --bg-fondo: #0a0a0e;
+    --bg-tarjetas: #16161e;
+    --texto: #f4effa;
+}
+
+/* =========================================
+   1. ESTILOS GENERALES (MOBILE-FIRST)
+========================================= */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-fondo);
+    color: var(--texto);
+    font-family: 'Montserrat', sans-serif; /* Letra limpia para textos */
+}
+
+/* Tipografía para títulos y logo */
+h1, h2, h3, .logo {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+}
+
+/* =========================================
+   2. BARRA DE NAVEGACIÓN (MOBILE-FIRST)
+========================================= */
+header {
+    background-color: rgba(10, 10, 14, 0.9);
+    padding: 15px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: var(--color-logo);
+    text-shadow: 0 0 10px rgba(240, 98, 134, 0.3); /* Resplandor rosa */
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.menu a {
+    color: var(--texto);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.menu a:hover {
+    color: var(--color-logo);
+}
+
+/* Selector de Idioma */
+.lang-switch {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #555;
+    cursor: pointer;
+}
+
+.lang-switch .active {
+    color: var(--color-logo);
+    font-weight: bold;
+}
+
+.lang-switch .inactive:hover {
+    color: var(--texto);
+    transition: color 0.3s ease;
+}
+
+/* =========================================
+   3. SECCIÓN PRINCIPAL (HERO)
+========================================= */
+#hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 80px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* El degradado oscuro combinado con la imagen */
+    background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 14, 0.3) 0%,   /* Velo sutil arriba */
+        var(--bg-fondo) 100%        /* Se funde con el negro al llegar abajo */
+    ),
+    url('image/amada-fondo.jpg');
+
+    background-size: cover;
+    background-position: center, 80% center;
+    background-attachment: scroll;
+}
+
+#hero h1 {
+    font-size: clamp(2.5rem, 1.5rem + 5vw, 5rem);
+    margin: 0;
+    letter-spacing: clamp(4px, 1vw, 10px);
+    color: var(--texto);
+}
+
+.btn-escuchar {
+    margin-top: 30px;
+    padding: 15px 40px;
+    background-color: transparent;
+    color: var(--color-logo);
+    border: 1px solid var(--color-logo);
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-escuchar:hover {
+    background-color: var(--color-logo);
+    color: var(--bg-fondo);
+    box-shadow: 0 0 15px var(--color-logo);
+}
+
+/* =========================================
+   4. SECCIÓN DISCOGRAFÍA (MOBILE-FIRST)
+========================================= */
+#music {
+    padding: 72px 20px;
+    text-align: center;
+}
+
+.album-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    margin-top: 36px;
+}
+
+.album-card {
+    --album-color: #2a2a35;
+
+    width: min(100%, 280px);
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-tarjetas);
+    border: 1px solid var(--album-color);
+    color: var(--album-color);
+    box-shadow: 0 10px 20px color-mix(in oklab, var(--album-color) 20%, transparent);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+}
+
+.album-card h3 {
+    margin: 0;
+}
+
+/* Colores oficiales de cada álbum (siempre iluminados) */
+.album-card.album-astera,
+.album-card:nth-child(1) {
+    --album-color: var(--color-astera);
+}
+
+.album-card.album-hush,
+.album-card:nth-child(2) {
+    --album-color: var(--color-hush);
+}
+
+.album-card.album-gravity,
+.album-card:nth-child(3) {
+    --album-color: var(--color-gravity);
+}
+
+/* Elevación suave al interactuar en dispositivos con puntero fino */
+@media (hover: hover) {
+    .album-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 24px color-mix(in oklab, var(--album-color) 28%, transparent);
+    }
+}
+
+.album-card:active {
+    transform: translateY(-3px);
+}
+
+/* Tarjeta de "Próximamente" */
+.album-card.coming-soon {
+    --album-color: #333;
+    background: var(--bg-tarjetas);
+    border-style: dashed;
+    border-color: #333;
+    color: #555;
+    box-shadow: none;
+    cursor: default;
+}
+
+.album-card.coming-soon h3 {
+    text-shadow: none;
+}
+
+.album-card.coming-soon:hover,
+.album-card.coming-soon:active {
+    transform: none;
+    border-color: #555;
+    box-shadow: none;
+    color: #888;
+}
+
+/* =========================================
+   5. SECCIÓN EL UNIVERSO (LORE)
+========================================= */
+#lore {
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.lore-container {
+    max-width: 800px;
+    background-color: rgba(22, 22, 30, 0.5);
+    padding: 30px 20px;
+    border-radius: 10px;
+    border: 1px solid #2a2a35;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.lore-container h2 {
+    color: var(--color-logo);
+    margin-bottom: 30px;
+    font-size: clamp(1.5rem, 1.1rem + 1.5vw, 2rem);
+}
+
+.lore-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--texto);
+    margin-bottom: 20px;
+}
+
+.lore-nota {
+    margin-top: 40px;
+    font-style: italic;
+    color: var(--color-gravity);
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+/* =========================================
+   6. PIE DE PÁGINA (FOOTER)
+========================================= */
+footer {
+    background-color: #050508;
+    padding: 48px 20px 20px;
+    border-top: 1px solid #16161e;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    color: var(--color-logo);
+    letter-spacing: 2px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    color: var(--texto);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+.social-link:hover {
+    color: var(--color-astera);
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 11px;
+    color: #555;
+    border-top: 1px solid #16161e;
+    padding-top: 20px;
+}
+
+/* =========================================
+   7. TABLETS Y ESCRITORIO (>= 768px)
+========================================= */
+@media (min-width: 768px) {
+    header {
+        padding: 20px 50px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .menu {
+        gap: 30px;
+    }
+
+    .menu a {
+        font-size: 13px;
+    }
+
+    .lang-switch {
+        font-size: 13px;
+    }
+
+    #hero {
+        background-position: center top;
+        background-attachment: fixed;
+    }
+
+    #music {
+        padding: 100px 50px;
+    }
+
+    .album-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 50px;
+    }
+
+    .album-card {
+        width: 250px;
+    }
+
+    #lore {
+        padding: 100px 50px;
+    }
+
+    .lore-container {
+        padding: 50px;
+    }
+
+    footer {
+        padding: 60px 50px 20px;
+    }
+
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .album-card,
+    .btn-escuchar,
+    .menu a,
+    .social-link {
+        transition: none;
+    }
+
+    .album-card:hover,
+    .album-card:active {
+        transform: none;
+    }
+}
