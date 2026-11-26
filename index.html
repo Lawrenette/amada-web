@@ -40,9 +40,14 @@
 
 <!-- SECCIÓN PRINCIPAL (HERO) -->
 <section id="hero">
-    <h1>AMADA</h1>
-    <p data-tr="hero_desc">Una experiencia sonora entre luces y sombras.</p>
-    <button class="btn-escuchar" data-tr="hero_btn">Descubrir</button>
+    <video class="hero-video" autoplay muted loop playsinline poster="image/amada-fondo.jpg" aria-hidden="true">
+        <source src="image/Amada.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+        <h1>AMADA</h1>
+        <p data-tr="hero_desc">Una experiencia sonora entre luces y sombras.</p>
+        <button class="btn-escuchar" data-tr="hero_btn">Descubrir</button>
+    </div>
 </section>
 
 <!-- SECCIÓN ESCUCHA AQUÍ -->
@@ -118,33 +123,6 @@
 <!-- SECCIÓN EL UNIVERSO (LORE) -->
 <section id="lore">
     <div class="lore-container">
-        <!-- Ornamento superior: cinta, luna y estrellas -->
-        <div class="lore-ornament-top" aria-hidden="true">
-            <svg class="lore-ribbon-svg" viewBox="0 0 160 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="loreRibbonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#b178d2"/>
-                        <stop offset="50%" stop-color="#ffaee1"/>
-                        <stop offset="100%" stop-color="#a6f3fe"/>
-                    </linearGradient>
-                </defs>
-                <!-- Estrellas laterales -->
-                <path d="M18 22L20 17L22 22L27 24L22 26L20 31L18 26L13 24Z" fill="#b178d2"/>
-                <circle cx="34" cy="18" r="1.4" fill="#a6f3fe"/>
-                <path d="M142 22L144 17L146 22L151 24L146 26L144 31L142 26L137 24Z" fill="#a6f3fe"/>
-                <circle cx="126" cy="18" r="1.4" fill="#b178d2"/>
-                <!-- Colas de la cinta -->
-                <path d="M74 23C65 29 54 33 44 36C51 30 58 26 67 22" stroke="url(#loreRibbonGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M86 23C95 29 106 33 116 36C109 30 102 26 93 22" stroke="url(#loreRibbonGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <!-- Lazos del moño -->
-                <path d="M76 21C66 10 50 11 49 20C48 27 64 26 76 22Z" fill="#ffaee1" fill-opacity="0.16" stroke="url(#loreRibbonGrad)" stroke-width="1.5" stroke-linejoin="round"/>
-                <path d="M84 21C94 10 110 11 111 20C112 27 96 26 84 22Z" fill="#b178d2" fill-opacity="0.16" stroke="url(#loreRibbonGrad)" stroke-width="1.5" stroke-linejoin="round"/>
-                <!-- Centro del moño con luna creciente -->
-                <circle cx="80" cy="21" r="6.5" fill="#16161e" stroke="url(#loreRibbonGrad)" stroke-width="1.4"/>
-                <path d="M81.5 17.5A3.8 3.8 0 1 0 81.5 24.5A2.9 2.9 0 1 1 81.5 17.5Z" fill="#ffaee1"/>
-            </svg>
-        </div>
-
         <!-- Filigranas de esquinas (lunas y estrellas) -->
         <svg class="lore-corner lore-corner-tl" viewBox="0 0 44 44" fill="none" aria-hidden="true">
             <path d="M4 34V14C4 8.5 8.5 4 14 4H34" stroke="#b178d2" stroke-opacity="0.65" stroke-width="1.2" stroke-linecap="round"/>

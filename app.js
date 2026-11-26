@@ -65,6 +65,12 @@ function cambiarIdioma(idioma) {
 btnEs.addEventListener("click", () => cambiarIdioma("es"));
 btnEn.addEventListener("click", () => cambiarIdioma("en"));
 
+// Pausar video de fondo si el usuario prefiere movimiento reducido
+const heroVideo = document.querySelector(".hero-video");
+if (heroVideo && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    heroVideo.pause();
+}
+
 // 5. GIRO 3D CONTINUO A LA IZQUIERDA (NOMBRE -> PORTADA -> TEXTO -> NOMBRE)
 const albumCards = document.querySelectorAll(".album-card:not(.coming-soon)");
 albumCards.forEach((card) => {
