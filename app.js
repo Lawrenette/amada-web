@@ -40,12 +40,19 @@ const btnEn = document.getElementById("btn-en");
 const elementosATraducir = document.querySelectorAll("[data-tr]");
 
 // 3. FUNCIÓN PARA CAMBIAR IDIOMA
+function aplicarFuenteTilde() {
+    document.querySelectorAll("#listen h2, #music h2, #lore h2, .menu a").forEach((el) => {
+        el.innerHTML = el.textContent.replace(/([íÍ])/g, '<span class="accent-i">$1</span>');
+    });
+}
+
 function cambiarIdioma(idioma) {
     // Cambiar los textos
     elementosATraducir.forEach((elemento) => {
         const clave = elemento.getAttribute("data-tr");
         elemento.innerHTML = traducciones[idioma][clave];
     });
+    aplicarFuenteTilde();
 
     // Cambiar el estilo de los botones
     if (idioma === "en") {
@@ -64,6 +71,7 @@ function cambiarIdioma(idioma) {
 // 4. ESCUCHAR LOS CLICS EN LOS BOTONES
 btnEs.addEventListener("click", () => cambiarIdioma("es"));
 btnEn.addEventListener("click", () => cambiarIdioma("en"));
+aplicarFuenteTilde();
 
 // Pausar video de fondo si el usuario prefiere movimiento reducido
 const heroVideo = document.querySelector(".hero-video");

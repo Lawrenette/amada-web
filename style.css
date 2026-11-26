@@ -66,6 +66,23 @@ footer {
     margin-bottom: 32px;
 }
 
+/* Letra "í / Í" neutra (Montserrat ajustada a la altura de NTR) */
+.accent-i {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82em;
+    font-weight: 400;
+}
+
+/* Tamaño unificado para los títulos de sección */
+#listen h2,
+#music h2,
+#lore h2 {
+    margin: 0;
+    font-size: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+    line-height: 1.15;
+    letter-spacing: 2px;
+}
+
 .title-sparkle-wrap h2 {
     margin: 0;
 }
@@ -112,7 +129,7 @@ body {
 
 /* Tipografía para títulos y logo */
 h1, h2, h3, .logo {
-    font-family: 'Cinzel', serif;
+    font-family: 'NTR', 'Montserrat', sans-serif;
     font-weight: 400;
 }
 
@@ -171,11 +188,13 @@ header {
 }
 
 .menu a {
+    font-family: 'NTR', 'Montserrat', sans-serif;
     color: var(--texto);
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 9.5px;
-    letter-spacing: 0.4px;
+    font-size: 12px;
+    line-height: 1.1;
+    letter-spacing: 0.6px;
     white-space: nowrap;
     transition: color 0.3s;
 }
@@ -395,9 +414,10 @@ header {
 }
 
 .album-title {
-    font-family: 'Cinzel', serif;
-    font-size: 1.17em;
+    font-family: 'NTR', 'Montserrat', sans-serif;
+    font-size: 1.85rem;
     font-weight: 400;
+    letter-spacing: 2px;
 }
 
 .album-desc {
@@ -405,7 +425,7 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     padding: 26px;
     font-size: 13.5px;
     line-height: 1.65;
@@ -414,8 +434,9 @@ header {
 }
 
 .album-desc-name {
-    font-family: 'Cinzel', serif;
-    font-size: 16px;
+    font-family: 'NTR', 'Montserrat', sans-serif;
+    font-size: 21px;
+    line-height: 1.15;
     font-weight: 400;
     letter-spacing: 1.5px;
     color: var(--album-color);
@@ -491,12 +512,6 @@ header {
 #listen {
     padding: 72px 20px 40px;
     text-align: center;
-}
-
-#listen h2 {
-    margin: 0;
-    font-size: clamp(1.35rem, 1rem + 1.2vw, 1.8rem);
-    letter-spacing: 2px;
 }
 
 .listen-grid {
@@ -666,8 +681,6 @@ header {
 
 .lore-container h2 {
     color: var(--color-logo);
-    margin: 0;
-    font-size: clamp(1.5rem, 1.1rem + 1.5vw, 2rem);
 }
 
 .lore-text {
@@ -699,10 +712,24 @@ footer {
 }
 
 .footer-logo {
-    font-family: 'Cinzel', serif;
-    font-size: 20px;
+    font-family: 'NTR', 'Montserrat', sans-serif;
+    font-size: 26px;
+    line-height: 1.1;
     color: var(--color-logo);
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    text-decoration: none;
+    transition: text-shadow 0.25s ease, transform 0.25s ease;
+}
+
+@media (hover: hover) {
+    .footer-logo:hover {
+        text-shadow: 0 0 12px color-mix(in oklab, var(--color-logo) 60%, transparent);
+    }
+}
+
+.footer-logo:focus-visible {
+    outline: 2px solid var(--color-logo);
+    outline-offset: 4px;
 }
 
 .footer-links {
@@ -778,8 +805,8 @@ footer {
     }
 
     .menu a {
-        font-size: 13px;
-        letter-spacing: 1px;
+        font-size: 16px;
+        letter-spacing: 1.2px;
     }
 
     .lang-switch {
