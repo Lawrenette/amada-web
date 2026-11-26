@@ -32,6 +32,7 @@ button,
 .btn-escuchar {
     cursor: url('image/cursor-24.png') 2 1, pointer;
     cursor: image-set(url('image/cursor-24.png') 1x, url('image/cursor-48.png') 2x) 2 1, pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .bg-glitter-canvas {
@@ -283,9 +284,12 @@ header {
     aspect-ratio: 1;
     padding: 0;
     border: 0;
+    border-radius: 14px;
     background: transparent;
     font: inherit;
     perspective: 1000px;
+    user-select: none;
+    -webkit-user-select: none;
     transition: transform 0.4s ease;
 }
 
@@ -430,6 +434,10 @@ header {
 
 .album-card:active {
     transform: translateY(-3px);
+}
+
+.album-card:active .album-face {
+    box-shadow: 0 0 22px color-mix(in oklab, var(--album-color) 42%, transparent);
 }
 
 /* Tarjeta de "Próximamente" */
