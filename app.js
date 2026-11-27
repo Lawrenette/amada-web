@@ -71,10 +71,37 @@ btnEs.addEventListener("click", () => cambiarIdioma("es"));
 btnEn.addEventListener("click", () => cambiarIdioma("en"));
 aplicarFuenteTilde();
 
-// Pausar video de fondo si el usuario prefiere movimiento reducido
+// Pausar / reanudar video de fondo (mostrando amada-fondo.jpg al pausar)
+const heroSection = document.getElementById("hero");
 const heroVideo = document.querySelector(".hero-video");
-if (heroVideo && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    heroVideo.pause();
+const btnHeroVideo = document.getElementById("btn-hero-video");
+
+function setHeroVideoPaused(paused) {
+    if (!heroSection || !heroVideo || !btnHeroVideo) return;
+    heroSection.classList.toggle("video-paused", paused);
+    btnHeroVideo.setAttribute("aria-pressed", String(paused));
+    const isEn = btnEn.classList.contains("active");
+    const label = paused
+        ? (isEn ? "Play video" : "Reproducir video")
+        : (isEn ? "Pause video" : "Pausar video");
+    btnHeroVideo.setAttribute("aria-label", label);
+    btnHeroVideo.setAttribute("title", label);
+    if (paused) {
+        heroVideo.pause();
+    } else {
+        heroVideo.play().catch(() => {});
+    }
+}
+
+if (heroVideo && btnHeroVideo) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setHeroVideoPaused(true);
+    }
+
+    btnHeroVideo.addEventListener("click", () => {
+        const isPaused = heroSection.classList.contains("video-paused");
+        setHeroVideoPaused(!isPaused);
+    });
 }
 
 // 5. GIRO 3D CONTINUO A LA IZQUIERDA (NOMBRE -> TEXTO -> PORTADA -> NOMBRE)
