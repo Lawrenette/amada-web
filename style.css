@@ -757,6 +757,7 @@ header > :not(.header-glitter-canvas) {
 #lore {
     padding: 60px 20px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -853,10 +854,6 @@ header > :not(.header-glitter-canvas) {
 
 .lore-dot {
     color: color-mix(in oklab, var(--texto) 45%, transparent);
-}
-
-.lore-container h2 {
-    color: var(--color-logo);
 }
 
 .lore-text {
