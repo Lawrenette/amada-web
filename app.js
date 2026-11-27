@@ -77,7 +77,7 @@ if (heroVideo && window.matchMedia("(prefers-reduced-motion: reduce)").matches) 
     heroVideo.pause();
 }
 
-// 5. GIRO 3D CONTINUO A LA IZQUIERDA (NOMBRE -> PORTADA -> TEXTO -> NOMBRE)
+// 5. GIRO 3D CONTINUO A LA IZQUIERDA (NOMBRE -> TEXTO -> PORTADA -> NOMBRE)
 const albumCards = document.querySelectorAll(".album-card:not(.coming-soon)");
 albumCards.forEach((card) => {
     const inner = card.querySelector(".album-card-inner");
@@ -85,8 +85,8 @@ albumCards.forEach((card) => {
     const back = card.querySelector(".album-back");
     const stages = [
         card.querySelector(".album-stage-title"),
-        card.querySelector(".album-stage-cover"),
-        card.querySelector(".album-stage-desc")
+        card.querySelector(".album-stage-desc"),
+        card.querySelector(".album-stage-cover")
     ];
     let step = 0;
 
