@@ -10,7 +10,7 @@
     <!-- Fuentes de Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=NTR&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mogra&family=Montserrat:wght@300;400&family=NTR&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
 </head>
@@ -46,8 +46,10 @@
     </video>
     <div class="hero-content">
         <h1>AMADA</h1>
-        <p data-tr="hero_desc">Una experiencia sonora entre luces y sombras.</p>
-        <button class="btn-escuchar" data-tr="hero_btn">Descubrir</button>
+        <div class="hero-desc-wrap">
+            <canvas class="desc-cascade-canvas" aria-hidden="true"></canvas>
+            <p class="hero-desc" data-tr="hero_desc"><span class="w-astera">Una</span> <span class="w-hush">experiencia</span> <span class="w-gravity">sonora</span> <span class="w-astera">entre</span> <span class="w-hush">luces</span> <span class="w-gravity">y</span> <span class="w-astera">sombras</span></p>
+        </div>
     </div>
 </section>
 

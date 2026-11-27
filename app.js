@@ -4,8 +4,7 @@ const traducciones = {
         nav_escucha: "Escucha aquí",
         nav_disco: "Discografía",
         nav_universo: "El Universo",
-        hero_desc: "Una experiencia sonora entre luces y sombras.",
-        hero_btn: "Descubrir",
+        hero_desc: "<span class=\"w-astera\">Una</span> <span class=\"w-hush\">experiencia</span> <span class=\"w-gravity\">sonora</span> <span class=\"w-astera\">entre</span> <span class=\"w-hush\">luces</span> <span class=\"w-gravity\">y</span> <span class=\"w-astera\">sombras</span>",
         music_titulo: "Discografía",
         music_hint: "Haz clic para explorar cada álbum",
         card_astera: "<strong class=\"album-desc-name\">✦ Astera ✦</strong><span>Un escape mágico y fantástico lejos de la realidad.</span>",
@@ -20,8 +19,7 @@ const traducciones = {
         nav_escucha: "Listen here",
         nav_disco: "Discography",
         nav_universo: "The Universe",
-        hero_desc: "A sonic experience between light and shadows.",
-        hero_btn: "Discover",
+        hero_desc: "<span class=\"w-astera\">A</span> <span class=\"w-hush\">sonic</span> <span class=\"w-gravity\">experience</span> <span class=\"w-astera\">between</span> <span class=\"w-hush\">light</span> <span class=\"w-gravity\">and</span> <span class=\"w-astera\">shadows</span>",
         music_titulo: "Discography",
         music_hint: "Click to explore each album",
         card_astera: "<strong class=\"album-desc-name\">✦ Astera ✦</strong><span>A magical, fantastical escape far from reality.</span>",
@@ -389,6 +387,122 @@ albumCards.forEach((card) => {
         canvas.height = Math.floor(h * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         createSpecks(w, h);
+        render(0);
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    if (!prefersReducedMotion) {
+        let tick = 0;
+        function loop() {
+            tick += 1;
+            render(tick);
+            requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
+    }
+})();
+
+// 9. MINI CASCADA DE BRILLANTINA DESDE LA FRASE DEL HERO
+(() => {
+    const canvas = document.querySelector(".desc-cascade-canvas");
+    if (!canvas) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const ctx = canvas.getContext("2d");
+    const cascadeColors = ["#b178d2", "#ffaee1", "#a6f3fe"];
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let w = 0;
+    let h = 0;
+    let drops = [];
+
+    function makeDrop(randomY = false) {
+        const isStar = Math.random() < 0.35;
+        return {
+            x: 12 + Math.random() * Math.max(10, w - 24),
+            y: randomY ? Math.random() * h : Math.random() * 10,
+            size: isStar ? 2.0 + Math.random() * 2.0 : 0.8 + Math.random() * 1.2,
+            isStar,
+            color: cascadeColors[Math.floor(Math.random() * cascadeColors.length)],
+            vy: 0.28 + Math.random() * 0.42,
+            swayAmp: 0.12 + Math.random() * 0.22,
+            swaySpeed: 0.02 + Math.random() * 0.03,
+            twinkleSpeed: 0.04 + Math.random() * 0.05,
+            phase: Math.random() * Math.PI * 2,
+            baseAlpha: 0.45 + Math.random() * 0.45
+        };
+    }
+
+    function initDrops() {
+        const count = Math.min(46, Math.max(24, Math.floor(w / 10)));
+        drops = Array.from({ length: count }, () => makeDrop(true));
+    }
+
+    function drawStar(x, y, r) {
+        const inner = r * 0.28;
+        ctx.beginPath();
+        for (let i = 0; i < 8; i++) {
+            const rad = i % 2 === 0 ? r : inner;
+            const a = (i * Math.PI) / 4;
+            const px = x + Math.cos(a) * rad;
+            const py = y + Math.sin(a) * rad;
+            if (i === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    function render(tick) {
+        ctx.clearRect(0, 0, w, h);
+
+        for (let i = 0; i < drops.length; i++) {
+            const d = drops[i];
+            if (!prefersReducedMotion) {
+                d.y += d.vy;
+                d.x += Math.sin(tick * d.swaySpeed + d.phase) * d.swayAmp;
+                if (d.y > h) {
+                    drops[i] = makeDrop(false);
+                    continue;
+                }
+            }
+
+            const progress = Math.min(1, Math.max(0, d.y / (h || 1)));
+            // Aparece suave arriba y se desvanece al caer
+            const verticalFade = progress < 0.12 ? progress / 0.12 : Math.pow(1 - progress, 1.35);
+            const twinkle = prefersReducedMotion
+                ? 0.8
+                : 0.4 + 0.6 * (0.5 + 0.5 * Math.sin(tick * d.twinkleSpeed + d.phase));
+            const alpha = d.baseAlpha * verticalFade * twinkle;
+            if (alpha <= 0.015) continue;
+
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = d.color;
+            ctx.shadowColor = d.color;
+            ctx.shadowBlur = d.isStar ? 7 : 4;
+
+            if (d.isStar) {
+                drawStar(d.x, d.y, d.size);
+            } else {
+                ctx.beginPath();
+                ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+    }
+
+    function resize() {
+        const rect = canvas.getBoundingClientRect();
+        w = rect.width;
+        h = rect.height;
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.max(1, Math.floor(w * dpr));
+        canvas.height = Math.max(1, Math.floor(h * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        initDrops();
         render(0);
     }
 
